@@ -1,52 +1,47 @@
 export const easeOut = [0.22, 1, 0.36, 1] as const;
 
 export const fadeUp = {
-  hidden: { opacity: 0, y: 48, filter: "blur(10px)" },
+  hidden: { opacity: 0, y: 32 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.75, ease: easeOut },
+    transition: { duration: 0.6, ease: easeOut },
   },
 };
 
 export const fadeDown = {
-  hidden: { opacity: 0, y: -32, filter: "blur(8px)" },
+  hidden: { opacity: 0, y: -24 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.7, ease: easeOut },
+    transition: { duration: 0.55, ease: easeOut },
   },
 };
 
 export const fadeLeft = {
-  hidden: { opacity: 0, x: 56, filter: "blur(8px)" },
+  hidden: { opacity: 0, x: 40 },
   visible: {
     opacity: 1,
     x: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.75, ease: easeOut },
+    transition: { duration: 0.6, ease: easeOut },
   },
 };
 
 export const fadeRight = {
-  hidden: { opacity: 0, x: -56, filter: "blur(8px)" },
+  hidden: { opacity: 0, x: -40 },
   visible: {
     opacity: 1,
     x: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.75, ease: easeOut },
+    transition: { duration: 0.6, ease: easeOut },
   },
 };
 
 export const scaleIn = {
-  hidden: { opacity: 0, scale: 0.92, filter: "blur(6px)" },
+  hidden: { opacity: 0, scale: 0.95 },
   visible: {
     opacity: 1,
     scale: 1,
-    filter: "blur(0px)",
-    transition: { duration: 0.65, ease: easeOut },
+    transition: { duration: 0.5, ease: easeOut },
   },
 };
 
@@ -63,6 +58,6 @@ export const lineGrow = {
   visible: {
     scaleX: 1,
     opacity: 1,
-    transition: { duration: 0.9, ease: easeOut },
+    transition: { duration: 0.7, ease: easeOut },
   },
 };

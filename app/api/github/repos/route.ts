@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { fetchGitHubRepos, getGitHubUsername } from "@/lib/github";
 import { githubProfileUrl, site } from "@/lib/site";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+/** Revalidate every 10 minutes; webhook can force-refresh sooner */
+export const revalidate = 600;
 
 export async function GET() {
   try {
@@ -16,11 +16,6 @@ export async function GET() {
         repos,
         fetchedAt: new Date().toISOString(),
       },
-      {
-        headers: {
-          "Cache-Control": "no-store, max-age=0",
-        },
-      }
     );
   } catch (error) {
     console.error("GitHub repos error:", error);

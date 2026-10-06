@@ -31,12 +31,11 @@ export default function TextReveal({
   };
 
   const item = {
-    hidden: { opacity: 0, y: 28, filter: "blur(6px)" },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
-      transition: { duration: 0.55, ease: easeOut },
+      transition: { duration: 0.45, ease: easeOut },
     },
   };
 

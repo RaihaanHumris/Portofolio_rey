@@ -33,10 +33,11 @@ type ProjectModalProps = {
 };
 
 function ProjectModal({ project, onClose }: ProjectModalProps) {
-  const tags = [
+  const tags = Array.from(new Set([
     ...(project.language ? [project.language] : []),
-    ...project.topics,
-  ];
+    ...(project.stack || []),
+    ...(project.topics || []),
+  ]));
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -286,21 +287,17 @@ export default function Projects() {
                   className="card-modern overflow-hidden flex flex-col text-left group transition-transform duration-200 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
-                    {/* Iframe Preview */}
-                    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                      <iframe
-                        src={project.homepage}
-                        title={`Preview of ${project.name}`}
-                        className="absolute top-0 left-0 origin-top-left opacity-75 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{ width: '400%', height: '400%', transform: 'scale(0.25)' }}
-                        sandbox="allow-scripts allow-same-origin"
-                        loading="lazy"
-                        tabIndex={-1}
-                        aria-hidden="true"
-                      />
+                    {/* Lightweight gradient preview instead of heavy iframe */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 via-slate-900 to-slate-950">
+                      <div className="absolute inset-0 opacity-30" style={{
+                        backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
+                        backgroundSize: '24px 24px',
+                      }} />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="material-symbols-outlined text-4xl text-white/10 group-hover:text-white/20 transition-colors duration-300">language</span>
+                      </div>
                     </div>
-                    {/* Fallback overlay to make text readable */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/20 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent pointer-events-none" />
                     
                     <span className="absolute top-3 left-3 text-[10px] font-semibold uppercase tracking-wider text-emerald-300 bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 px-2 py-1 rounded-full shadow-lg">
                       Live

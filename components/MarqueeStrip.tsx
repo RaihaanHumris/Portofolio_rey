@@ -1,5 +1,3 @@
-"use client";
-
 interface MarqueeStripProps {
   items: string[];
   className?: string;

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import CustomCursorLoader from "@/components/CustomCursorLoader";
+import LoadingScreen from "@/components/LoadingScreen";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -90,9 +91,16 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* Preconnect to Google Fonts CDN for faster font loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Non-render-blocking Material Symbols */}
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"
+          media="print"
+          // @ts-expect-error -- onLoad swaps media to 'all' after download
+          onLoad="this.media='all'"
         />
         <style>
           {`
@@ -103,6 +111,7 @@ export default function RootLayout({
         </style>
       </head>
       <body className={`${manrope.className} bg-surface text-on-surface antialiased flex flex-col min-h-screen`}>
+        <LoadingScreen />
         <CustomCursorLoader />
         {children}
       </body>
