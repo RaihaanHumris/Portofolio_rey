@@ -75,7 +75,7 @@ export default function Contact() {
                 className="card-modern flex items-center gap-4 p-5 group"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-white group-hover:bg-white group-hover:text-slate-950 transition-colors">
-                  <span className="material-symbols-outlined">mail</span>
+                  <i className="fa-solid fa-envelope text-lg" aria-hidden="true" />
                 </span>
                 <div>
                   <p className="text-xs text-slate-500 mb-0.5">Email</p>
@@ -91,7 +91,7 @@ export default function Contact() {
                 className="card-modern flex items-center gap-4 p-5 group"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-white group-hover:bg-[#25D366] transition-colors">
-                  <span className="material-symbols-outlined">chat</span>
+                  <i className="fa-brands fa-whatsapp text-xl" aria-hidden="true" />
                 </span>
                 <div>
                   <p className="text-xs text-slate-500 mb-0.5">WhatsApp</p>

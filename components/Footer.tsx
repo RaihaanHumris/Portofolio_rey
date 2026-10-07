@@ -5,9 +5,9 @@ import { fadeUp, staggerContainer } from "@/lib/animations";
 import { githubProfileUrl, navLinks, site } from "@/lib/site";
 
 const social = [
-  { label: "GitHub", href: githubProfileUrl() },
-  { label: "LinkedIn", href: "https://linkedin.com/in/raihaanhumris" },
-  { label: "Email", href: `mailto:${site.email}` },
+  { label: "GitHub", href: githubProfileUrl(), icon: "fa-brands fa-github" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/raihaanhumris", icon: "fa-brands fa-linkedin" },
+  { label: "Email", href: `mailto:${site.email}`, icon: "fa-solid fa-envelope" },
 ];
 
 export default function Footer() {
@@ -55,16 +55,17 @@ export default function Footer() {
               <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">Sosial</p>
               <ul className="space-y-2">
                 {social.map((item) => (
-                  <li key={item.label}>
-                    <a
-                      href={item.href}
-                      target={item.href.startsWith("http") ? "_blank" : undefined}
-                      rel="noopener noreferrer"
-                      className="text-sm text-slate-400 hover:text-white transition-colors"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
+                      <li key={item.label}>
+                        <a
+                          href={item.href}
+                          target={item.href.startsWith("http") ? "_blank" : undefined}
+                          rel="noopener noreferrer"
+                          className="text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2"
+                        >
+                          <i className={`${item.icon} text-base w-4 text-center`} aria-hidden="true" />
+                          <span>{item.label}</span>
+                        </a>
+                      </li>
                 ))}
               </ul>
             </motion.div>

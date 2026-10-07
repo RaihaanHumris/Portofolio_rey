@@ -21,11 +21,11 @@ export function githubProfileUrl(username: string = site.githubUsername) {
 }
 
 export const navLinks = [
-  { id: "home", label: "Beranda", href: "#home", icon: "home" },
-  { id: "about", label: "Tentang", href: "#about", icon: "person" },
-  { id: "skills", label: "Keahlian", href: "#skills", icon: "code" },
-  { id: "projects", label: "Proyek", href: "#projects", icon: "work" },
-  { id: "contact", label: "Kontak", href: "#contact", icon: "mail" },
+  { id: "home", label: "Beranda", href: "#home", icon: "fa-solid fa-house" },
+  { id: "about", label: "Tentang", href: "#about", icon: "fa-solid fa-user" },
+  { id: "skills", label: "Keahlian", href: "#skills", icon: "fa-solid fa-code" },
+  { id: "projects", label: "Proyek", href: "#projects", icon: "fa-solid fa-folder-open" },
+  { id: "contact", label: "Kontak", href: "#contact", icon: "fa-solid fa-paper-plane" },
 ] as const;
 
 export type SectionId = (typeof navLinks)[number]["id"];

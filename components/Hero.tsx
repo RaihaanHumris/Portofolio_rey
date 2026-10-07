@@ -8,9 +8,9 @@ import { fadeUp, scaleIn, staggerContainer } from "@/lib/animations";
 import { site } from "@/lib/site";
 
 const principles = [
-  { title: "Struktur Jelas", desc: "Arsitektur rapi, mudah dikembangkan, minim bug.", icon: "account_tree" },
-  { title: "Hasil Maksimal", desc: "Fokus performa dan tujuan bisnis yang jelas.", icon: "rocket_launch" },
-  { title: "Rencana Matang", desc: "Blueprint solid sebelum eksekusi kode.", icon: "schema" },
+  { title: "Struktur Jelas", desc: "Arsitektur rapi, mudah dikembangkan, minim bug.", icon: "fa-solid fa-network-wired" },
+  { title: "Hasil Maksimal", desc: "Fokus performa dan tujuan bisnis yang jelas.", icon: "fa-solid fa-rocket" },
+  { title: "Rencana Matang", desc: "Blueprint solid sebelum eksekusi kode.", icon: "fa-solid fa-layer-group" },
 ];
 
 const tags = ["Next.js", "Laravel", "TypeScript", "Tailwind", "MySQL"];
@@ -52,9 +52,9 @@ export default function Hero() {
               </motion.p>
 
               <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mb-10">
-                <Link href="#projects" className="btn-primary text-base">
+                <Link href="#projects" className="btn-primary text-base flex items-center gap-2">
                   Lihat Proyek
-                  <span className="material-symbols-outlined text-xl">arrow_outward</span>
+                  <i className="fa-solid fa-arrow-up-right-from-square text-sm" aria-hidden="true" />
                 </Link>
                 <Link href="#contact" className="btn-secondary text-base">
                   Hubungi Saya
@@ -109,7 +109,7 @@ export default function Hero() {
                   whileHover={{ y: -4 }}
                   className="card-modern p-6 md:p-7"
                 >
-                  <span className="material-symbols-outlined text-2xl text-slate-300 mb-3">{item.icon}</span>
+                  <i className={`${item.icon} text-2xl text-slate-300 mb-3 block`} aria-hidden="true" />
                   <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
                   <p className="text-on-surface-variant text-sm leading-relaxed">{item.desc}</p>
                 </motion.div>

@@ -71,7 +71,7 @@ export default function Pricing() {
               <ul className="space-y-3 mb-8 flex-1">
                 {tier.features.map((feature) => (
                   <li key={feature} className="flex items-center gap-2 text-sm text-on-surface-variant">
-                    <span className="material-symbols-outlined text-secondary text-lg">check_circle</span>
+                    <i className="fa-solid fa-circle-check text-secondary text-base" aria-hidden="true" />
                     {feature}
                   </li>
                 ))}

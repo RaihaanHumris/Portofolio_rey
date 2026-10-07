@@ -105,7 +105,7 @@ export default function Navbar() {
                 title={link.label}
                 className={iconLinkClass(isActive)}
               >
-                <span className="material-symbols-outlined text-[22px]">{link.icon}</span>
+                <i className={`${link.icon} text-lg`} aria-hidden="true" />
               </a>
             );
           })}
@@ -215,9 +215,7 @@ export default function Navbar() {
                             isActive ? "bg-white text-[#0a0f1a]" : "bg-white/[0.06]"
                           }`}
                         >
-                          <span className="material-symbols-outlined text-[20px]">
-                            {link.icon}
-                          </span>
+                          <i className={`${link.icon} text-base`} aria-hidden="true" />
                         </span>
                         <span className="text-sm font-medium">{link.label}</span>
                       </a>
