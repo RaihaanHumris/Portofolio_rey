@@ -40,7 +40,7 @@ export default function About() {
 
             <FadeIn direction="right" delay={0.15}>
               <p className="text-on-surface-variant text-lg leading-relaxed mb-6">
-                Halo, saya <strong className="text-white font-bold">Muhammad Raihaan Humris</strong>, seorang Web Developer yang berbasis di <strong className="text-white font-bold">Ende, Nusa Tenggara Timur</strong>. Sebagai lulusan di <strong className="text-white font-bold">MAKN Ende</strong> jurusan <strong className="text-white font-bold">Pengembangan Perangkat Lunak dan Gim</strong>, saya memiliki dedikasi tinggi untuk terus mengeksplorasi teknologi terbaru.
+                Halo, saya <strong className="text-white font-bold">Muhammad Raihaan Humris</strong>, seorang Web Developer yang berbasis di <strong className="text-white font-bold">Ende, Nusa Tenggara Timur</strong>. Sebagai peserta didik di <strong className="text-white font-bold">MAKN Ende</strong> jurusan <strong className="text-white font-bold">Pengembangan Perangkat Lunak dan Gim</strong>, saya memiliki dedikasi tinggi untuk terus mengeksplorasi teknologi terbaru.
               </p>
               <p className="text-on-surface-variant text-lg leading-relaxed mb-8">
                 Saya percaya bahwa esensi dari seorang developer adalah kemampuannya dalam menghadirkan solusi yang efisien dan tepat sasaran. Dengan fokus pada penulisan kode yang bersih dan arsitektur sistem yang performan, saya siap membantu mentransformasi kebutuhan Anda menjadi aplikasi digital yang inovatif.
