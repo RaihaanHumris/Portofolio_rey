@@ -7,9 +7,15 @@ export default function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Lock scroll during loading
+    // Pada mobile / layar sentuh, lewati loading screen agar FCP & LCP instan sesuai rekomendasi PageSpeed
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setIsLoading(false);
+      return;
+    }
+
+    // Lock scroll during loading di desktop
     document.body.style.overflow = "hidden";
-    const timer = setTimeout(() => setIsLoading(false), 2500);
+    const timer = setTimeout(() => setIsLoading(false), 1400);
     return () => {
       clearTimeout(timer);
       document.body.style.overflow = "";
@@ -21,9 +27,9 @@ export default function LoadingScreen() {
       {isLoading && (
         <motion.div
           key="loading-screen"
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#080c14]"
+          className="hidden md:flex fixed inset-0 z-[9999] flex-col items-center justify-center bg-[#080c14]"
           exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Circular progress ring */}
           <div className="relative flex items-center justify-center mb-8">

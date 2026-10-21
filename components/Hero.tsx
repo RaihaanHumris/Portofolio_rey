@@ -29,7 +29,7 @@ export default function Hero() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
               variants={staggerContainer(0.08, 0.1)}
-              initial="hidden"
+              initial={false}
               animate="visible"
             >
               <motion.div variants={fadeUp}>

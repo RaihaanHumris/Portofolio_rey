@@ -144,7 +144,6 @@ export default function ProfilePhoto() {
               className={`object-cover transition-all duration-700 ${
                 revealed ? "grayscale-0 brightness-100" : "grayscale brightness-[0.72]"
               }`}
-              priority
             />
           </motion.div>
 

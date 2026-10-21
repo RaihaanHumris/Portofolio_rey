@@ -12,7 +12,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://raihaan-personal.vercel.app"),
+  metadataBase: new URL("https://www.raihaanhumris.my.id"),
   title: {
     default: "Raihaan Humris | Fullstack Engineer",
     template: "%s | Raihaan Humris"
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://raihaan-personal.vercel.app",
+    url: "https://www.raihaanhumris.my.id",
     title: "Raihaan Humris | Fullstack Engineer",
     description: "Portofolio Raihaan Humris, Fullstack Systems Architect.",
     siteName: "Raihaan Humris Portfolio",
@@ -74,9 +74,9 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Raihaan Humris",
-    "image": "https://raihaanhumris.vercel.app/logo.png",
+    "image": "https://www.raihaanhumris.my.id/about.jpg",
     "jobTitle": "Fullstack Engineer",
-    "url": "https://raihaanhumris.vercel.app",
+    "url": "https://www.raihaanhumris.my.id",
     "sameAs": [
       "https://github.com/ReyhanHumris",
       "https://linkedin.com/in/raihaanhumris"
@@ -91,32 +91,28 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* Preconnect to Google Fonts CDN and cdnjs for faster font loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preconnect to cdnjs for non-blocking font icons */}
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
-        {/* Font Awesome 6 */}
+        
+        {/* Font Awesome 6 - Asynchronous / Non-render-blocking */}
+        <link
+          rel="preload"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          as="style"
+        />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
-        {/* Material Symbols fallback */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-          rel="stylesheet"
           media="print"
-          // @ts-expect-error -- onLoad swaps media to 'all' after download
+          // @ts-expect-error -- onLoad swaps media to 'all' after download to avoid render blocking
           onLoad="this.media='all'"
         />
-        <style>
-          {`
-            .material-symbols-outlined {
-              font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-            }
-          `}
-        </style>
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          />
+        </noscript>
       </head>
       <body className={`${manrope.className} bg-surface text-on-surface antialiased flex flex-col min-h-screen`}>
         <LoadingScreen />
