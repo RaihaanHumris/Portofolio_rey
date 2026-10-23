@@ -92,7 +92,7 @@ export default function Navbar() {
           />
         </a>
 
-        <nav className="flex flex-1 flex-col items-center justify-center gap-1.5 w-full px-2">
+        <nav className="flex flex-1 flex-col items-center justify-center gap-3 w-full px-2">
           {navLinks.map((link) => {
             const isActive = active === link.id;
             return (
