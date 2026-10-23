@@ -91,28 +91,16 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* Preconnect to cdnjs for non-blocking font icons */}
+        {/* Preconnect to cdnjs for faster font loading */}
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
         
-        {/* Font Awesome 6 - Asynchronous / Non-render-blocking */}
-        <link
-          rel="preload"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-          as="style"
-        />
+        {/* Font Awesome 6 */}
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-          media="print"
-          // @ts-expect-error -- onLoad swaps media to 'all' after download to avoid render blocking
-          onLoad="this.media='all'"
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
         />
-        <noscript>
-          <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-          />
-        </noscript>
       </head>
       <body className={`${manrope.className} bg-surface text-on-surface antialiased flex flex-col min-h-screen`}>
         <LoadingScreen />
