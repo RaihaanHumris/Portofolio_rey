@@ -6,14 +6,17 @@ export type GitHubRepo = {
   fullName: string;
   description: string;
   htmlUrl: string;
-  homepage: string;
+  homepage: string | null;
   language: string | null;
+  category: ProjectCategory;
   topics: string[];
   stack: string[];
   stars: number;
   forks: number;
   pushedAt: string;
 };
+
+export type ProjectCategory = "Frontend" | "Backend" | "Fullstack" | "Lainnya";
 
 type GitHubApiRepo = {
   id: number;
@@ -66,7 +69,44 @@ export function demoHostname(homepage: string) {
   }
 }
 
-export async function fetchGitHubRepos(limit = 9): Promise<GitHubRepo[]> {
+function inferProjectCategory(language: string | null, stack: string[], description: string): ProjectCategory {
+  const frontendStack = [
+    "react",
+    "next.js",
+    "vue",
+    "svelte",
+    "angular",
+    "tailwind css",
+    "bootstrap",
+    "three.js",
+    "vite",
+    "framer motion",
+  ];
+  const backendStack = ["express", "prisma"];
+  const normalizedStack = stack.map((item) => item.toLowerCase());
+  const normalizedLanguage = language?.toLowerCase() ?? "";
+  const normalizedDescription = description.toLowerCase();
+  const hasBackendStack = backendStack.some((item) => normalizedStack.includes(item));
+  const hasBackendLanguage = ["php", "python", "go", "java", "ruby", "rust", "c#"].includes(normalizedLanguage);
+  const hasFrontendFramework = frontendStack.some((item) => normalizedStack.includes(item));
+  const hasFrontendLanguage = ["html", "css", "javascript", "typescript", "blade", "kotlin"].includes(normalizedLanguage);
+
+  const hasFrontend =
+    hasFrontendFramework ||
+    (hasFrontendLanguage && !hasBackendStack && !hasBackendLanguage);
+  const hasBackend =
+    hasBackendStack ||
+    hasBackendLanguage ||
+    /\b(backend|back-end|api|server)\b/.test(normalizedDescription);
+
+  if (normalizedStack.includes("next.js") || normalizedLanguage === "blade") return "Fullstack";
+  if (hasFrontend && hasBackend) return "Fullstack";
+  if (hasFrontend) return "Frontend";
+  if (hasBackend) return "Backend";
+  return "Lainnya";
+}
+
+export async function fetchGitHubRepos(limit = 100): Promise<GitHubRepo[]> {
   const username = getGitHubUsername();
   const headers: HeadersInit = {
     Accept: "application/vnd.github+json",
@@ -93,22 +133,20 @@ export async function fetchGitHubRepos(limit = 9): Promise<GitHubRepo[]> {
     .filter((repo) => !repo.fork && !repo.archived && !repo.private)
     .map((repo) => {
       const homepage = normalizeLiveDemoUrl(repo.homepage);
-      if (!homepage) return null;
       return { repo, homepage };
     })
-    .filter((item): item is { repo: GitHubApiRepo; homepage: string } => item !== null)
     .slice(0, limit);
 
   const repos = await Promise.all(
     validRepos.map(async ({ repo, homepage }) => {
-      let stack: string[] = [];
-      let readmeDesc = repo.description?.trim() || "Proyek web dengan demo live.";
+      const stack: string[] = [];
+      const githubDescription = repo.description?.trim();
+      let description = githubDescription || "Proyek web di GitHub.";
 
       try {
-        const [pkgRes, readmeRes] = await Promise.all([
-          fetch(`https://raw.githubusercontent.com/${username}/${repo.name}/${repo.default_branch}/package.json`),
-          fetch(`https://raw.githubusercontent.com/${username}/${repo.name}/${repo.default_branch}/README.md`)
-        ]);
+        const pkgRes = await fetch(
+          `https://raw.githubusercontent.com/${username}/${repo.name}/${repo.default_branch}/package.json`
+        );
 
         if (pkgRes.ok) {
           const pkg = await pkgRes.json();
@@ -128,16 +166,21 @@ export async function fetchGitHubRepos(limit = 9): Promise<GitHubRepo[]> {
           if (deps['three']) stack.push('Three.js');
         }
 
-        if (readmeRes.ok) {
-          const readme = await readmeRes.text();
-          const lines = readme.split('\n');
-          for (const line of lines) {
-            const t = line.trim();
-            // find the first readable paragraph that is not a heading, image, or link-only
-            if (t && !t.startsWith('#') && !t.startsWith('[') && !t.startsWith('<') && !t.startsWith('!') && !t.startsWith('=')) {
-              if (t.length > 30) { // sufficiently long to be a description
-                readmeDesc = t.length > 200 ? t.slice(0, 197) + '...' : t;
-                break;
+        if (!githubDescription) {
+          const readmeRes = await fetch(
+            `https://raw.githubusercontent.com/${username}/${repo.name}/${repo.default_branch}/README.md`
+          );
+          if (readmeRes.ok) {
+            const readme = await readmeRes.text();
+            const lines = readme.split('\n');
+            for (const line of lines) {
+              const t = line.trim();
+              // find the first readable paragraph that is not a heading, image, or link-only
+              if (t && !t.startsWith('#') && !t.startsWith('[') && !t.startsWith('<') && !t.startsWith('!') && !t.startsWith('=')) {
+                if (t.length > 30) { // sufficiently long to be a description
+                  description = t.length > 200 ? t.slice(0, 197) + '...' : t;
+                  break;
+                }
               }
             }
           }
@@ -150,10 +193,11 @@ export async function fetchGitHubRepos(limit = 9): Promise<GitHubRepo[]> {
         id: repo.id,
         name: repo.name,
         fullName: repo.full_name,
-        description: readmeDesc,
+        description,
         htmlUrl: repo.html_url,
         homepage,
         language: repo.language,
+        category: inferProjectCategory(repo.language, stack, description),
         topics: (repo.topics ?? []).slice(0, 4),
         stack,
         stars: repo.stargazers_count,

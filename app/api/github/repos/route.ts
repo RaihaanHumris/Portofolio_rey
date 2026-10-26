@@ -7,7 +7,7 @@ export const revalidate = 600;
 
 export async function GET() {
   try {
-    const repos = await fetchGitHubRepos(9);
+    const repos = await fetchGitHubRepos(100);
     return NextResponse.json(
       {
         username: getGitHubUsername(),
