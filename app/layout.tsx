@@ -78,7 +78,7 @@ export default function RootLayout({
     "jobTitle": "Fullstack Engineer",
     "url": "https://www.raihaanhumris.my.id",
     "sameAs": [
-      "https://github.com/ReyhanHumris",
+      "https://github.com/RaihaanHumris",
       "https://linkedin.com/in/raihaanhumris"
     ]
   };

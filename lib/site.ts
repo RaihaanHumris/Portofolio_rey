@@ -13,7 +13,7 @@ export const site = {
   /**
    * @handle GitHub (tanpa spasi). Sesuaikan di .env: GITHUB_USERNAME=handle_anda
    */
-  githubUsername: "ReyhanHumris",
+  githubUsername: "RaihaanHumris",
 } as const;
 
 export function githubProfileUrl(username: string = site.githubUsername) {
