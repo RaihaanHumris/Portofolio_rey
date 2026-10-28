@@ -22,14 +22,15 @@ export const metadata: Metadata = {
   authors: [{ name: "Raihaan Humris" }],
   creator: "Raihaan Humris",
   
-  // 1. SOLUSI LOGO: Menimpa favicon bawaan Vercel
   icons: {
     icon: [
-      { url: "/favicon.ico", href: "/favicon.ico" }, // Favicon utama
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
     ],
     apple: [
-      { url: "/favicon.ico", href: "/favicon.ico" }, // Untuk shortcut di iOS
+      { url: "/apple-icon.svg", type: "image/svg+xml" },
     ],
+    shortcut: ["/icon.svg"],
   },
 
   openGraph: {
@@ -72,14 +73,37 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Raihaan Humris",
-    "image": "https://www.raihaanhumris.my.id/about.jpg",
-    "jobTitle": "Fullstack Engineer",
-    "url": "https://www.raihaanhumris.my.id",
-    "sameAs": [
-      "https://github.com/RaihaanHumris",
-      "https://linkedin.com/in/raihaanhumris"
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://www.raihaanhumris.my.id/#person",
+        "name": "Raihaan Humris",
+        "alternateName": "Muhammad Raihaan Humris",
+        "jobTitle": "Fullstack Engineer",
+        "url": "https://www.raihaanhumris.my.id",
+        "image": {
+          "@type": "ImageObject",
+          "@id": "https://www.raihaanhumris.my.id/#personimage",
+          "url": "https://www.raihaanhumris.my.id/about.jpg",
+          "caption": "Muhammad Raihaan Humris - Fullstack Engineer",
+          "inLanguage": "id-ID"
+        },
+        "sameAs": [
+          "https://github.com/RaihaanHumris",
+          "https://linkedin.com/in/raihaanhumris",
+          "https://instagram.com/reyhanhumris"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.raihaanhumris.my.id/#website",
+        "url": "https://www.raihaanhumris.my.id",
+        "name": "Raihaan Humris | Fullstack Engineer",
+        "description": "Portofolio Raihaan Humris, Fullstack Systems Architect - Engineering the Digital Monolith.",
+        "publisher": {
+          "@id": "https://www.raihaanhumris.my.id/#person"
+        }
+      }
     ]
   };
 
